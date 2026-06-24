@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Shami!</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif; 
+    background-color: #fbf9f6; 
+    color: #0c0c0c; 
+    overflow-x: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* The dark start screen */
+#p1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0c0c0c; 
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 1.5s ease; 
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#tapBtn {
+    margin-top: 20px;
+    padding: 15px 30px;
+    border: 2px solid #b59410; 
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    background: transparent;
+    color: #b59410; 
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(181, 148, 16, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+#tapBtn:hover {
+    background: #b59410; 
+    color: #0c0c0c;
+    box-shadow: 0 0 25px rgba(181, 148, 16, 0.7);
+}
+
+#main-content {
+    display: none; 
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 1.5s ease forwards;
+}
+
+@keyframes fadeInAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* FOREGROUND: Metallic Golden Text Layer */
+#text-layer {
+    position: relative;
+    z-index: 10; 
+    text-align: center;
+    padding: 35px;
+    background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 15px 35px rgba(170, 119, 28, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.3);
+    margin-bottom: 40px; 
+    overflow: hidden; 
+    box-sizing: border-box;
+}
+
+#text-layer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    animation: shineSweep 4s infinite ease-in-out;
+}
+
+@keyframes shineSweep {
+    0% { left: -150%; }
+    30% { left: 150%; }
+    100% { left: 150%; }
+}
+
+h1 {
+    font-size: 2.8rem;
+    color: #fffaf0; 
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(255,255,255,0.8), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#message {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #1a1a1a; 
+    font-weight: 500;
+    font-style: italic;
+    margin: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.highlight-dark {
+    color: #000000;
+    font-weight: bold;
+    font-style: normal;
+    display: block;
+    margin-top: 15px;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* BACKGROUND LAYER: Pounding Giftboxes */
+.present {
+    position: fixed; 
+    width: 75px;
+    height: 75px;
+    background-color: #fffaf0; 
+    border: 2px solid #b59410;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    opacity: 0.55; 
+    z-index: 1;
+    animation: presentPopUp 1s ease 0.5s forwards, heartbeat 1.4s infinite ease-in-out 1.5s;
+    transform-origin: center;
+}
+
+#pres1 { top: 10%; left: 5%; }
+#pres2 { bottom: 25%; left: 8%; animation-delay: 0.2s, 1.7s !important; }
+#pres3 { top: 15%; right: 5%; animation-delay: 0.1s, 1.6s !important; }
+#pres4 { bottom: 30%; right: 8%; animation-delay: 0.3s, 1.8s !important; }
+
+@keyframes presentPopUp {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.12); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.12); }
+    70% { transform: scale(1); }
+}
+
+.present::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: #b59410; 
+    transform: translateY(-50%);
+}
+
+.present::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10px;
+    height: 100%;
+    background-color: #b59410; 
+    transform: translateX(-50%);
+}
+
+/* FALLING GLITTER SYSTEM */
+.glitter-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2; 
+    overflow: hidden;
+    display: none;
+}
+
+.glitter {
+    position: absolute;
+    background: radial-gradient(circle, #fff 10%, #b59410 70%, transparent 100%);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 5px #fffaf0, 0 0 10px #b59410;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        top: -10px;
+        opacity: 0;
+        transform: translateX(0) scale(0.5) rotate(0deg);
+    }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% {
+        top: 105vh;
+        opacity: 0;
+        transform: translateX(60px) scale(1.2) rotate(360deg);
+    }
+}
+
+/* Background Candles */
+#candles-bg {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    gap: 30px;
+    opacity: 0.85;
+    z-index: 5;
+}
+
+.candle-set {
+    background-color: #fffaf0;
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 2px solid #b59410;
+}
+
+.candle {
+    width: 10px;
+    height: 35px;
+    background-color: #f5f1e1; 
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.wick {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 2px;
+    height: 4px;
+    background-color: #0c0c0c; 
+    transform: translateX(-50%);
+}
+
+.flame {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 8px;
+    height: 12px;
+    background-color: #ffcc00; 
+    border-radius: 50% 50% 35% 35%;
+    transform: translateX(-50%) scale(0); 
+    animation: flameFlicker 1.5s infinite, flameIgnite 0.5s ease 1s forwards; 
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+@keyframes flameIgnite {
+    to { transform: translateX(-50%) scale(1); }
+}
+
+@keyframes flameFlicker {
+    0% { transform: translateX(-50%) scale(1) rotate(0deg); }
+    50% { transform: translateX(-50%) scale(1.05) rotate(3deg); }
+    100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS: Forces layout adjustment on smaller mobile screens
+   ========================================================================== */
+@media (max-width: 600px) {
+    body {
+        padding: 15px 10px;
+    }
+    
+    h1 {
+        font-size: 2rem; /* Scales down header text size */
+        margin-bottom: 15px;
+    }
+    
+    #text-layer {
+        padding: 20px 15px; /* Shrinks container borders slightly to save display room */
+        margin-bottom: 20px;
+    }
+    
+    #message {
+        font-size: 1rem; /* Highly readable baseline on mobile vertical viewports */
+        line-height: 1.6;
+    }
+    
+    .highlight-dark {
+        font-size: 1.1rem;
+    }
+    
+    /* Shrink the size and pull boxes inward so they stay on screen frame */
+    .present {
+        width: 45px;
+        height: 45px;
+    }
+    #pres1 { top: 4%; left: 4%; }
+    #pres2 { bottom: 12%; left: 4%; }
+    #pres3 { top: 6%; right: 4%; }
+    #pres4 { bottom: 16%; right: 4%; }
+    
+    #candles-bg {
+        gap: 15px;
+        transform: scale(0.9); /* Scales container slightly down for small displays */
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="https://files.catbox.moe/1k0rqu.mp3" loop></audio>
+
+<div class="glitter-container" id="glitterBox"></div>
+
+<div id="p1">
+    <h1 style="color: white; text-shadow: none; animation: none; font-size: 2.2rem;">HEY SHAMI</h1>
+    <p style="color: white;">A little special delivery for you...</p>
+    <button id="tapBtn" onclick="start()">Tap to open your present</button>
+</div>
+
+<div id="main-content" class="fade-in">
+    
+    <div class="present" id="pres1"></div>
+    <div class="present" id="pres2"></div>
+    <div class="present" id="pres3"></div>
+    <div class="present" id="pres4"></div>
+
+    <div id="text-layer">
+        <h1>Happy Birthday 😌🎉</h1>
+        <p id="message">
+            Also… slight apology because I almost messed this up 😭<br>
+            For some reason I thought today was the 26th.<br>
+            Good thing I’m just confused, not late.<br><br>
+            Just know I think you’re genuinely special—cool, pretty, slightly annoying sometimes, but we move.<br><br>
+            You’ve got this way of making things feel lighter, and being around you is always a good vibe. That alone says a lot.<br><br>
+            As Don Toliver said in What You Need — <strong>“I can be what you need.”</strong><br>
+            …no pressure though 😏<br><br>
+            Anyway, enjoy your day, eat good, look good (as usual), and have a good one.<br>
+            <span class="highlight-dark">I LOVE YOU HABIBTI 🤍</span>
+        </p>
+    </div>
+
+    <div id="candles-bg">
+        <div class="candle-set">
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+        </div>
+        <div class="candle-set">
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function createGlitter() {
+    const container = document.getElementById('glitterBox');
+    const particleCount = 35; // Slightly reduced for smooth mobile processing loops
+    
+    for(let i = 0; i < particleCount; i++) {
+        let glitter = document.createElement('div');
+        glitter.className = 'glitter';
+        
+        let size = Math.random() * 5 + 2; 
+        glitter.style.width = size + 'px';
+        glitter.style.height = size + 'px';
+        glitter.style.left = Math.random() * 100 + 'vw';
+        
+        glitter.style.animationDuration = (Math.random() * 3 + 4) + 's'; 
+        glitter.style.animationDelay = (Math.random() * 5) + 's';
+        
+        container.appendChild(glitter);
+    }
+}
+
+function start(){
+    let darkScreen = document.getElementById("p1");
+    let whiteContent = document.getElementById("main-content");
+    let glitterBox = document.getElementById("glitterBox");
+    let audio = document.getElementById("music");
+    
+    createGlitter();
+    
+    audio.play().catch(error => {
+        console.error("Playback block:", error);
+    });
+
+    darkScreen.style.opacity = "0";
+    
+    setTimeout(() => {
+        darkScreen.style.display = "none";
+        glitterBox.style.display = "block";
+        whiteContent.style.display = "flex";
+    }, 1500); 
+}
+</script>
+
+</body>
+</html>
